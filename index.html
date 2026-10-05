@@ -3,43 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proba.com</title>
+    <title>Proba</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #0b0b0f;
+            color: #eeeeee;
+        }
+
+        header {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            background: #111116;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+            letter-spacing: 4px;
+        }
+
+        header p {
+            color: #888;
+        }
+
+        nav {
             display: flex;
             justify-content: center;
-            align-items: center;
-            background: white;
-            font-family: Arial, sans-serif;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            background: #15151b;
         }
 
-        .content {
+        nav button {
+            background: #22222a;
+            color: white;
+            border: 1px solid #444;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        nav button:hover {
+            background: #33333d;
+        }
+
+        main {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .section {
+            display: none;
+            animation: appear 0.4s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: #15151b;
+            border: 1px solid #303039;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin: 10px 0;
+            background: #0d0d12;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 7px;
+            font-size: 16px;
+        }
+
+        .action {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 7px;
+            background: #eeeeee;
+            color: #111;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .action:hover {
+            background: #cccccc;
+        }
+
+        .result {
+            margin-top: 15px;
+            min-height: 25px;
+        }
+
+        .secret {
+            display: none;
+            border-left: 3px solid #aaa;
+            padding: 15px;
+            margin-top: 20px;
+            background: #101015;
+        }
+
+        footer {
             text-align: center;
-            font-size: 32px;
-            color: black;
-        }
-
-        #number {
-            margin-top: 10px;
-            font-size: 24px;
+            padding: 30px;
+            color: #666;
+            border-top: 1px solid #292930;
+            margin-top: 30px;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="content">
-        <div>Привет</div>
-        <div id="number"></div>
-    </div>
+<header>
+    <h1>PROBA</h1>
+    <p>Добро пожаловать.</p>
+</header>
 
-    <script>
-        const number = Math.floor(Math.random() * 1000);
-        document.getElementById("number").textContent = number;
-    </script>
+<nav>
+    <button onclick="showSection('home')">Главная</button>
+    <button onclick="showSection('about')">О сайте</button>
+    <button onclick="showSection('puzzle')">Загадка</button>
+    <button onclick="showSection('secret')">Секрет</button>
+</nav>
+
+<main>
+
+    <section id="home" class="section active">
+        <div class="card">
+            <h2>Главная</h2>
+            <p>
+                Это интерактивная версия сайта Proba.
+            </p>
+            <p>
+                Исследуй разделы сайта и попробуй найти то,
+                что спрятано.
+            </p>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="card">
+            <h2>О сайте</h2>
+            <p>
+                Здесь можно разместить историю проекта,
+                фотографии, документы, записи или любую
+                другую информацию.
+            </p>
+        </div>
+    </section>
+
+    <section id="puzzle" class="section">
+        <div class="card">
+            <h2>Загадка</h2>
+
+            <p>
+                Я всегда рядом, но меня нельзя увидеть.
+                Я могу хранить то, что ты мне доверишь.
+                Что я?
+            </p>
+
+            <input
+                type="text"
+                id="answer"
+                placeholder="Введите ответ..."
+            >
+
+            <button class="action" onclick="checkAnswer()">
+                Проверить
+            </button>
+
+            <div id="result" class="result"></div>
+        </div>
+    </section>
+
+    <section id="secret" class="section">
+        <div class="card">
+            <h2>🔐 Закрытый раздел</h2>
+
+            <p>
+                Введи код доступа.
+            </p>
+
+            <input
+                type="password"
+                id="code"
+                placeholder="Код..."
+            >
+
+            <button class="action" onclick="checkCode()">
+                Открыть
+            </button>
+
+            <div id="codeResult" class="result"></div>
+
+            <div id="secretText" class="secret">
+                <h3>Секрет найден.</h3>
+                <p>
+                    Ты открыл скрытую часть сайта.
+                </p>
+                <p>
+                    Здесь можно разместить следующий этап,
+                    секретное сообщение или новую загадку.
+                </p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    PROBA © 2026
+</footer>
+
+<script>
+    function showSection(id) {
+        const sections = document.querySelectorAll(".section");
+
+        sections.forEach(section => {
+            section.classList.remove("active");
+        });
+
+        document.getElementById(id).classList.add("active");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+    function checkAnswer() {
+        const answer = document
+            .getElementById("answer")
+            .value
+            .trim()
+            .toLowerCase();
+
+        const result = document.getElementById("result");
+
+        if (answer === "интернет") {
+            result.textContent = "✓ Верно.";
+        } else if (answer === "") {
+            result.textContent = "Введите ответ.";
+        } else {
+            result.textContent = "✗ Неверно. Попробуй ещё.";
+        }
+    }
+
+    function checkCode() {
+        const code = document.getElementById("code").value.trim();
+        const result = document.getElementById("codeResult");
+        const secret = document.getElementById("secretText");
+
+        if (code === "1978") {
+            result.textContent = "✓ Код принят.";
+            secret.style.display = "block";
+        } else if (code === "") {
+            result.textContent = "Введите код.";
+            secret.style.display = "none";
+        } else {
+            result.textContent = "✗ Доступ запрещён.";
+            secret.style.display = "none";
+        }
+    }
+</script>
 
 </body>
 </html>
