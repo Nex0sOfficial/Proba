@@ -2,10 +2,44 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Proba</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proba.com</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .content {
+            text-align: center;
+            font-size: 32px;
+            color: black;
+        }
+
+        #number {
+            margin-top: 10px;
+            font-size: 24px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Привет!</h1>
-    <p>Сайт работает.</p>
+
+    <div class="content">
+        <div>Привет</div>
+        <div id="number"></div>
+    </div>
+
+    <script>
+        const number = Math.floor(Math.random() * 1000);
+        document.getElementById("number").textContent = number;
+    </script>
+
 </body>
 </html>
